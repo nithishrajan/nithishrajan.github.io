@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import Rating from '../../components/Rating.astro';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import { getBooks, isoDate } from '../../lib/feed';
+
+export async function getStaticPaths() {
+  return (await getBooks()).map((book) => ({ params: { slug: book.id }, props: { book } }));
+}
+const { book } = Astro.props;
+const { Content } = await render(book);
+const d = book.data;
+const statusText = { read: 'finished', reading: 'reading now', want: 'on the someday pile' }[d.status];
+---
+<Base title={d.title} description={d.blurb ?? `${d.title} by ${d.author}`}>
+  <article class="book">
+    <div class="cover" style={`--c:${d.spineColor}`}>
+      {d.cover ? (
+        <Image src={d.cover} alt={`Cover of ${d.title}`} width={360} />
+      ) : (
+        <div class="gen-cover"><span class="ct">{d.title}</span><span class="ca mono">{d.author}</span></div>
+      )}
+    </div>
+    <div>
+      <p class="label"><a href="/books/">~/books</a></p>
+      <h1>{d.title}</h1>
+      <p class="author">{d.author}</p>
+      <p class="mono soft meta">
+        {statusText}{d.dateRead && <> · {isoDate(d.dateRead)}</>}
+        {d.rating && <> · <Rating value={d.rating} /></>}
+        {d.recommended && <> · <span class="rec">recommended</span></>}
+      </p>
+      {d.blurb && <p class="blurb">{d.blurb}</p>}
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</Base>
+<style>
+  .book { display: grid; grid-template-columns: 15rem 1fr; gap: 3rem; margin-top: 2.5rem; align-items: start; }
+  .cover { transform: rotate(-2deg); box-shadow: var(--shadow); }
+  .gen-cover {
+    aspect-ratio: 2 / 3; background: var(--c); color: #f6efe2; display: flex; flex-direction: column;
+    justify-content: space-between; padding: 1.4rem 1.1rem;
+    background-image: linear-gradient(90deg, rgba(0,0,0,.25) 0 4%, rgba(255,255,255,.08) 5%, transparent 12%);
+  }
+  .ct { font-size: 1.6rem; line-height: 1.1; font-style: italic; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+  .ca { font-size: 0.7rem; opacity: 0.85; }
+  .label a { text-decoration: none; }
+  .author { margin: 0 0 0.5rem; font-style: italic; color: var(--ink-soft); font-size: 1.2rem; }
+  .meta { font-size: 0.75rem; }
+  .rec { color: var(--terracotta); }
+  .blurb { font-size: 1.15rem; border-left: 2px solid var(--amber); padding-left: 1rem; }
+  @media (max-width: 640px) {
+    .book { grid-template-columns: 1fr; gap: 1.5rem; }
+    .cover { max-width: 11rem; }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import PrintScatter from '../../components/PrintScatter.astro';
+import { getEphemera } from '../../lib/feed';
+const items = await getEphemera();
+---
+<Base title="ephemera" description="Photos and videos — small moments, tossed on the desk.">
+  <header class="section-head">
+    <p class="label">~/ephemera</p>
+    <h1>The desk</h1>
+    <p>Small moments, tossed down in a pile. They land differently every time you visit.</p>
+  </header>
+  <PrintScatter items={items} shuffle />
+</Base>

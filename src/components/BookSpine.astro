@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { book: CollectionEntry<'books'>; }
+const { book } = Astro.props;
+const { title, author, spineColor, recommended, status } = book.data;
+// deterministic-ish height + width so the shelf looks uneven, like a real one
+const seed = [...book.id].reduce((a, c) => a + c.charCodeAt(0), 0);
+const h = 200 + (seed % 5) * 14;
+const w = 40 + (seed % 3) * 8;
+// pick readable text color for the spine
+const hex = spineColor.replace('#', '');
+const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+const light = (r * 299 + g * 587 + b * 114) / 1000 > 150;
+---
+<li class="spine-li" style={`--h:${h}px; --w:${w}px; --c:${spineColor}; --t:${light ? '#2b2420' : '#f6efe2'}`}>
+  <a href={`/books/${book.id}/`} class="spine" data-book data-status={status} data-rec={recommended ? '1' : undefined}>
+    <span class="t">{title}</span>
+    <span class="a mono">{author.split(' ').at(-1)}</span>
+  </a>
+  {recommended && <span class="rec" aria-label="recommended">rec’d!</span>}
+  {status === 'reading' && <span class="rec bm" aria-label="currently reading">reading</span>}
+</li>
+<style>
+  .spine-li { position: relative; list-style: none; }
+  .spine {
+    display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+    width: var(--w); height: var(--h);
+    background: var(--c); color: var(--t);
+    background-image: linear-gradient(90deg, rgba(0,0,0,.18), rgba(255,255,255,.08) 20%, rgba(0,0,0,0) 45%, rgba(0,0,0,.15));
+    border-radius: 2px 2px 1px 1px;
+    padding: 0.7rem 0 0.5rem;
+    text-decoration: none;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1.2);
+  }
+  .spine:hover, .spine:focus-visible, .spine.picked { transform: translateY(-18px); color: var(--t); }
+  .spine.picked { outline: 2px solid var(--amber); outline-offset: 3px; }
+  .t { writing-mode: vertical-rl; font-size: 0.9rem; line-height: 1.1; max-height: calc(var(--h) - 4rem); overflow: hidden; }
+  .a { writing-mode: vertical-rl; font-size: 0.6rem; opacity: 0.8; }
+  .rec {
+    position: absolute; top: -1.6rem; left: 50%; transform: translateX(-50%) rotate(-8deg);
+    font-style: italic; font-size: 0.8rem; color: var(--terracotta); white-space: nowrap; pointer-events: none;
+  }
+  .bm { color: var(--amber); }
+</style>

@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { slugOf } from '../lib/feed';
+interface Props { items: CollectionEntry<'ephemera'>[]; shuffle?: boolean; }
+const { items, shuffle = false } = Astro.props;
+---
+<div class="desk-wrap">
+  {shuffle && (
+    <button class="btn shuffle" type="button" data-shuffle-desk><span class="prompt">⤨</span> shuffle the desk</button>
+  )}
+  <ul class="desk" data-desk>
+    {items.map((e) => {
+      const img = e.data.images[0];
+      return (
+        <li class={`print t-${e.data.type}`}>
+          <a href={`/ephemera/${slugOf(e.id)}/`}>
+            <div class="photo">
+              {img ? (
+                <Image src={img} alt={e.data.caption ?? e.data.title} width={480} loading="lazy" />
+              ) : (
+                <div class="blank" />
+              )}
+              {e.data.type === 'video' && <span class="badge mono">▶ video</span>}
+              {e.data.type === 'gallery' && <span class="badge mono">×{e.data.images.length}</span>}
+            </div>
+            <span class="cap">{e.data.title}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+<script>
+  // toss the prints: new angles + offsets on every visit
+  function toss(desk: HTMLElement, reorder = false) {
+    const prints = [...desk.children] as HTMLElement[];
+    if (reorder) {
+      prints.sort(() => Math.random() - 0.5).forEach((p) => desk.appendChild(p));
+    }
+    prints.forEach((p) => {
+      p.style.setProperty('--r', `${(Math.random() * 10 - 5).toFixed(1)}deg`);
+      p.style.setProperty('--x', `${(Math.random() * 16 - 8).toFixed(0)}px`);
+      p.style.setProperty('--y', `${(Math.random() * 16 - 8).toFixed(0)}px`);
+    });
+  }
+  document.querySelectorAll<HTMLElement>('[data-desk]').forEach((d) => toss(d));
+  document.querySelectorAll('[data-shuffle-desk]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const desk = b.parentElement!.querySelector<HTMLElement>('[data-desk]');
+      if (desk) toss(desk, true);
+    }),
+  );
+</script>
+<style>
+  .desk-wrap { position: relative; }
+  .shuffle { margin-bottom: 1.5rem; }
+  .desk {
+    list-style: none; padding: 0.5rem 0; margin: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2.2rem 1.6rem;
+  }
+  .print {
+    --r: 0deg; --x: 0px; --y: 0px;
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1.2);
+  }
+  .print:hover, .print:focus-within { transform: translate(0, -4px) rotate(0deg) scale(1.03); z-index: 2; }
+  .print a {
+    display: block; background: #fbf8f2; padding: 10px 10px 0; box-shadow: var(--shadow);
+    text-decoration: none; color: #2b2420;
+  }
+  .photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #ddd; }
+  .photo :global(img), .blank { width: 100%; height: 100%; object-fit: cover; }
+  .t-gallery a { box-shadow: var(--shadow), 6px 6px 0 -1px #efe8dc, 6px 6px 0 0 rgba(0,0,0,.08); }
+  .badge {
+    position: absolute; bottom: 8px; right: 8px; background: rgba(30, 24, 20, 0.75); color: #f6efe2;
+    font-size: 0.68rem; padding: 0.15rem 0.45rem; border-radius: 3px;
+  }
+  .cap { display: block; padding: 0.55rem 0.2rem 0.7rem; font-style: italic; font-size: 1rem; text-align: center; }
+  @media (max-width: 520px) {
+    .desk { grid-template-columns: repeat(2, 1fr); gap: 1.4rem 1rem; }
+    .print { transform: rotate(calc(var(--r) * 0.5)); }
+    .cap { font-size: 0.85rem; }
+  }
+</style>

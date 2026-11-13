@@ -1,0 +1,14 @@
+---
+interface Props { value?: number; }
+const { value } = Astro.props;
+---
+{value ? (
+  <span class="rating mono" aria-label={`${value} out of 5`}>
+    <span class="on">{'★'.repeat(value)}</span><span class="off">{'☆'.repeat(5 - value)}</span>
+  </span>
+) : null}
+<style>
+  .rating { letter-spacing: 0.15em; }
+  .on { color: var(--amber); }
+  .off { color: var(--rule); }
+</style>
