@@ -35,6 +35,6 @@ Schemas live in `src/content.config.ts`. Books only show up in the home feed onc
 - Components: `Greeting`, `NowBlock`, `LifeLog`, `ArchivePick`, `PrintScatter`, `BookSpine`, `Rating`, `VideoEmbed`, `RelativeTime`, `SurpriseMe`
 
 ## TODO
-- Set the real `site` URL in `astro.config.mjs` and the email in `src/pages/about.astro`
+- Set the email in `src/pages/about.astro`
 - Replace the seed content and placeholder images
-- Deploy: push to GitHub, then connect to Cloudflare Pages or Netlify (build `npm run build`, output `dist`)
+- Deploys automatically to https://nithishrajan.github.io on every push to `main` (`.github/workflows/deploy.yml`)
