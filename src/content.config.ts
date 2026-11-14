@@ -1,33 +1,35 @@
 import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
-const blog = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+// writing
+const ephemera = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/ephemera' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    description: z.string(),
-    tags: z.array(z.string()).default([]),
+    description: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });
 
-const ephemera = defineCollection({
-  loader: glob({ pattern: '**/index.md', base: './src/content/ephemera' }),
+// photos (and the odd video)
+const snapshots = defineCollection({
+  loader: glob({ pattern: '**/index.md', base: './src/content/snapshots' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       date: z.coerce.date(),
-      type: z.enum(['photo', 'video', 'gallery']),
-      images: z.array(image()).default([]),
-      video: z.string().url().optional(), // YouTube / Vimeo / Cloudflare Stream embed URL
+      type: z.enum(['photo', 'video', 'gallery']).default('photo'),
+      images: z.array(image()).min(1),
+      video: z.string().url().optional(), // YouTube / Vimeo embed URL; images[0] is the poster
       caption: z.string().optional(),
       location: z.string().optional(),
     }),
 });
 
-const books = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/books' }),
+// books
+const literature = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/literature' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -37,22 +39,9 @@ const books = defineCollection({
       rating: z.number().int().min(1).max(5).optional(),
       status: z.enum(['read', 'reading', 'want']),
       recommended: z.boolean().default(false),
-      dateRead: z.coerce.date().optional(),
+      date: z.coerce.date(), // when you finished it, or started it if still reading
       blurb: z.string().optional(),
-      tags: z.array(z.string()).default([]),
     }),
 });
 
-const now = defineCollection({
-  loader: file('./src/content/now.json'),
-  schema: z.object({
-    reading: z.string(),
-    lastPlace: z.string(),
-    workingOn: z.string(),
-    listening: z.string().optional(),
-    timezone: z.string(),
-    updated: z.coerce.date(),
-  }),
-});
-
-export const collections = { blog, ephemera, books, now };
+export const collections = { ephemera, snapshots, literature };

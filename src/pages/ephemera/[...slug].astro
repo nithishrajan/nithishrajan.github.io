@@ -1,105 +1,33 @@
 ---
 import Base from '../../layouts/Base.astro';
-import RelativeTime from '../../components/RelativeTime.astro';
-import VideoEmbed from '../../components/VideoEmbed.astro';
-import SurpriseMe from '../../components/SurpriseMe.astro';
-import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-import { getEphemera, slugOf, isoDate } from '../../lib/feed';
+import { getPosts, prettyDate } from '../../lib/feed';
 
 export async function getStaticPaths() {
-  const all = await getEphemera();
-  return all.map((entry, i) => ({
-    params: { slug: slugOf(entry.id) },
-    props: { entry, newer: all[i - 1], older: all[i + 1] },
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
   }));
 }
-const { entry, newer, older } = Astro.props;
-const { Content } = await render(entry);
-const d = entry.data;
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
 ---
-<Base title={d.title} description={d.caption}>
-  <article class="eph">
-    <p class="label"><a href="/ephemera/">~/ephemera</a></p>
-    <h1>{d.title}</h1>
-    <p class="mono soft meta">
-      {d.type}{d.location && <> · {d.location}</>} · {isoDate(d.date)} (<RelativeTime date={d.date} />)
-    </p>
-
-    {d.type === 'video' && d.video ? (
-      <VideoEmbed src={d.video} title={d.title} />
-    ) : (
-      <div class={`frames n-${d.images.length}`}>
-        {d.images.map((img, i) => (
-          <button type="button" class="frame" data-lightbox={i} aria-label={`enlarge image ${i + 1}`}>
-            <Image src={img} alt={d.caption ?? d.title} widths={[640, 1200]} sizes="(max-width: 700px) 100vw, 900px" />
-          </button>
-        ))}
-      </div>
-    )}
-
-    {d.caption && <p class="caption">{d.caption}</p>}
+<Base title={post.data.title} description={post.data.description}>
+  <article>
+    <header class="page-head">
+      <h1>{post.data.title}</h1>
+      <p>{prettyDate(post.data.date)}</p>
+    </header>
     <div class="prose"><Content /></div>
-
-    <nav class="pn mono">
-      {older ? <a href={`/ephemera/${slugOf(older.id)}/`}>← {older.data.title}</a> : <span />}
-      {newer ? <a href={`/ephemera/${slugOf(newer.id)}/`}>{newer.data.title} →</a> : <span />}
+    <nav class="pn small">
+      {older ? <a href={`/ephemera/${older.id}/`}>← {older.data.title}</a> : <span />}
+      {newer ? <a href={`/ephemera/${newer.id}/`}>{newer.data.title} →</a> : <span />}
     </nav>
-    <SurpriseMe label="another moment, at random" />
   </article>
-
-  {d.type !== 'video' && (
-    <dialog class="lightbox" data-lightbox-dialog aria-label={d.title}>
-      <form method="dialog"><button class="close mono" aria-label="close">esc ✕</button></form>
-      <div class="lb-img" data-lb-slot></div>
-      {d.images.length > 1 && <p class="mono soft hint">← → to flip through</p>}
-    </dialog>
-  )}
 </Base>
-<script>
-  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox-dialog]');
-  const slot = dialog?.querySelector<HTMLElement>('[data-lb-slot]');
-  const frames = [...document.querySelectorAll<HTMLButtonElement>('[data-lightbox]')];
-  let cur = 0;
-  function show(i: number) {
-    if (!dialog || !slot) return;
-    cur = (i + frames.length) % frames.length;
-    const img = frames[cur].querySelector('img')!;
-    const big = img.cloneNode() as HTMLImageElement;
-    big.sizes = '100vw';
-    big.loading = 'eager';
-    slot.replaceChildren(big);
-    if (!dialog.open) dialog.showModal();
-  }
-  frames.forEach((f, i) => f.addEventListener('click', () => show(i)));
-  dialog?.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
-  dialog?.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight') show(cur + 1);
-    if (e.key === 'ArrowLeft') show(cur - 1);
-  });
-</script>
 <style>
-  .eph { margin-top: 2.5rem; max-width: 56rem; }
-  .label a { text-decoration: none; }
-  .meta { font-size: 0.75rem; margin: 0 0 2rem; }
-  .frames { display: grid; gap: 1.25rem; }
-  .frames.n-2, .frames.n-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); align-items: start; }
-  .frame {
-    all: unset; cursor: zoom-in; display: block; background: #fbf8f2; padding: 12px 12px 36px; box-shadow: var(--shadow);
-    transition: transform 0.25s;
-  }
-  .frame:nth-child(odd) { transform: rotate(-0.8deg); }
-  .frame:nth-child(even) { transform: rotate(0.9deg); }
-  .frame:hover { transform: rotate(0deg) scale(1.01); }
-  .frame:focus-visible { outline: 2px dashed var(--amber); outline-offset: 4px; }
-  .caption { font-style: italic; font-size: 1.25rem; margin: 2rem 0 1rem; max-width: var(--measure); }
-  .pn { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 1.25rem; font-size: 0.8rem; border-top: 1px dashed var(--rule); padding-top: 1.25rem; }
-  .pn a { text-decoration: none; }
-  .lightbox {
-    border: 0; padding: 0; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible;
-  }
-  .lightbox::backdrop { background: rgba(20, 16, 12, 0.88); }
-  .lb-img :global(img) { max-width: 94vw; max-height: 86vh; width: auto; height: auto; object-fit: contain; }
-  .close { position: absolute; top: -2.2rem; right: 0; background: none; border: 0; color: #f6efe2; cursor: pointer; }
-  .hint { text-align: center; color: #cbbfae; font-size: 0.72rem; }
+  .pn { display: flex; justify-content: space-between; gap: 1rem; max-width: var(--measure); margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .pn a { text-decoration: none; color: var(--ink-soft); }
+  .pn a:hover { color: var(--ink); }
 </style>

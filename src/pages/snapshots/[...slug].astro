@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import { getSnapshots, slugOf, prettyDate } from '../../lib/feed';
+
+export async function getStaticPaths() {
+  const all = await getSnapshots();
+  return all.map((entry, i) => ({
+    params: { slug: slugOf(entry.id) },
+    props: { entry, newer: all[i - 1], older: all[i + 1] },
+  }));
+}
+const { entry, newer, older } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={d.caption}>
+  <article>
+    <header class="page-head">
+      <h1>{d.title}</h1>
+      <p>{[d.location, prettyDate(d.date)].filter(Boolean).join(' · ')}</p>
+    </header>
+
+    {d.type === 'video' && d.video ? (
+      <VideoEmbed src={d.video} title={d.title} />
+    ) : (
+      <div class="frames">
+        {d.images.map((img) => (
+          <Image src={img} alt={d.caption ?? d.title} widths={[640, 1100, 1600]} sizes="(max-width: 900px) 100vw, 900px" />
+        ))}
+      </div>
+    )}
+
+    {d.caption && <p class="caption">{d.caption}</p>}
+    <div class="prose"><Content /></div>
+
+    <nav class="pn small">
+      {older ? <a href={`/snapshots/${slugOf(older.id)}/`}>← {older.data.title}</a> : <span />}
+      {newer ? <a href={`/snapshots/${slugOf(newer.id)}/`}>{newer.data.title} →</a> : <span />}
+    </nav>
+  </article>
+</Base>
+<style>
+  article { max-width: 900px; }
+  .frames { display: flex; flex-direction: column; gap: 2rem; }
+  .frames :global(img) { max-height: 88vh; width: auto; margin: 0 auto; }
+  .caption { font-style: italic; color: var(--ink-soft); margin: 1.5rem 0; }
+  .pn { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+  .pn a { text-decoration: none; color: var(--ink-soft); }
+  .pn a:hover { color: var(--ink); }
+</style>

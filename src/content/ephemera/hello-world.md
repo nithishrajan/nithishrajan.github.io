@@ -2,7 +2,6 @@
 title: On leaving the door open
 date: 2026-11-10
 description: Why this site is a little messy on purpose.
-tags: [meta, spontaneity]
 ---
 
 Most personal sites are tidy. Mine is meant to be more like a desk mid-afternoon: a half-read book, a photo propped against the lamp, a note that says *call back about the thing*.

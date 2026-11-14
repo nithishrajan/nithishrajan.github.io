@@ -1,7 +1,0 @@
----
-// Renders an ISO date; a tiny script rewrites it to "3 days ago" in the browser.
-interface Props { date: Date; }
-const { date } = Astro.props;
-const iso = date.toISOString();
----
-<time datetime={iso} data-relative title={iso.slice(0, 10)}>{iso.slice(0, 10)}</time>

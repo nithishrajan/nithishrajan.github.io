@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { getSnapshots, slugOf, prettyDate } from '../../lib/feed';
+const items = await getSnapshots();
+---
+<Base title="snapshots" description="Photographs.">
+  <header class="page-head">
+    <h1>snapshots</h1>
+    <p>Little moments, kept.</p>
+  </header>
+  <ul class="plain-list grid">
+    {items.map((s) => (
+      <li>
+        <a href={`/snapshots/${slugOf(s.id)}/`}>
+          <div class="thumb">
+            <Image src={s.data.images[0]} alt={s.data.caption ?? s.data.title} widths={[400, 700]} sizes="(max-width: 600px) 50vw, 25vw" />
+            {s.data.type === 'video' && <span class="tag">▶</span>}
+            {s.data.type === 'gallery' && <span class="tag">{s.data.images.length}</span>}
+          </div>
+          <span class="title">{s.data.title}</span>
+          <span class="soft small">{[s.data.location, prettyDate(s.data.date)].filter(Boolean).join(' · ')}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2.5rem 1.5rem; }
+  a { text-decoration: none; display: flex; flex-direction: column; gap: 0.15rem; }
+  .thumb { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--paper-2); margin-bottom: 0.5rem; }
+  .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  a:hover .thumb :global(img) { transform: scale(1.03); }
+  .title { font-style: italic; }
+  .tag { position: absolute; right: 8px; bottom: 8px; background: rgba(31, 27, 23, 0.7); color: #f6efe2; font-size: 0.75rem; padding: 0.1rem 0.45rem; border-radius: 3px; }
+  @media (max-width: 520px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 1.75rem 1rem; } }
+</style>

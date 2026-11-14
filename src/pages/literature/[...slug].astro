@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import Rating from '../../components/Rating.astro';
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import { getBooks, prettyDate } from '../../lib/feed';
+
+export async function getStaticPaths() {
+  return (await getBooks()).map((book) => ({ params: { slug: book.id }, props: { book } }));
+}
+const { book } = Astro.props;
+const { Content } = await render(book);
+const d = book.data;
+const when = { read: `finished ${prettyDate(d.date)}`, reading: 'reading now', want: 'up next' }[d.status];
+---
+<Base title={d.title} description={d.blurb ?? `${d.title} by ${d.author}`}>
+  <article class="book">
+    <div class="cover">
+      {d.cover ? (
+        <Image src={d.cover} alt={`Cover of ${d.title}`} width={360} />
+      ) : (
+        <div class="gen-cover" style={`background:${d.spineColor}`}>
+          <span class="ct">{d.title}</span><span class="ca">{d.author}</span>
+        </div>
+      )}
+    </div>
+    <div>
+      <h1><em>{d.title}</em></h1>
+      <p class="author soft">{d.author}</p>
+      <p class="soft small">{when} {d.rating && <> · <Rating value={d.rating} /></>}</p>
+      {d.blurb && <p class="blurb">{d.blurb}</p>}
+      <div class="prose"><Content /></div>
+      <p class="small"><a href="/literature/">← literature</a></p>
+    </div>
+  </article>
+</Base>
+<style>
+  .book { display: grid; grid-template-columns: 13rem 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+  .gen-cover {
+    aspect-ratio: 2 / 3; color: #f6efe2; display: flex; flex-direction: column; justify-content: space-between;
+    padding: 1.25rem 1rem; border-radius: 2px;
+  }
+  .ct { font-size: 1.4rem; line-height: 1.15; font-style: italic; }
+  .ca { font-size: 0.85rem; opacity: 0.85; }
+  .author { margin: 0 0 0.4rem; font-size: 1.2rem; }
+  .blurb { font-style: italic; }
+  .small a { text-decoration: none; color: var(--ink-soft); }
+  @media (max-width: 640px) {
+    .book { grid-template-columns: 1fr; gap: 1.5rem; }
+    .cover { max-width: 9rem; }
+  }
+</style>

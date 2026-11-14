@@ -1,14 +1,27 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PrintScatter from '../../components/PrintScatter.astro';
-import { getEphemera } from '../../lib/feed';
-const items = await getEphemera();
+import { getPosts, prettyDate } from '../../lib/feed';
+const posts = await getPosts();
 ---
-<Base title="ephemera" description="Photos and videos — small moments, tossed on the desk.">
-  <header class="section-head">
-    <p class="label">~/ephemera</p>
-    <h1>The desk</h1>
-    <p>Small moments, tossed down in a pile. They land differently every time you visit.</p>
+<Base title="ephemera" description="Things I wrote down.">
+  <header class="page-head">
+    <h1>ephemera</h1>
+    <p>Things I wrote down.</p>
   </header>
-  <PrintScatter items={items} shuffle />
+  <ul class="plain-list posts">
+    {posts.map((p) => (
+      <li>
+        <a href={`/ephemera/${p.id}/`}>{p.data.title}</a>
+        <span class="soft small">{prettyDate(p.data.date)}</span>
+      </li>
+    ))}
+  </ul>
 </Base>
+<style>
+  .posts { max-width: var(--measure); }
+  li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--rule); }
+  li a { text-decoration: none; font-size: 1.25rem; }
+  li a:hover { text-decoration: underline; }
+  li span { white-space: nowrap; }
+  @media (max-width: 520px) { li { flex-direction: column; gap: 0.1rem; } }
+</style>

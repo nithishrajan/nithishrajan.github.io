@@ -1,40 +1,29 @@
-# ~/site: personal website
+# Nithish Rajan: personal site
 
-A blog ("logs"), photos and videos ("ephemera"/"the desk") and books ("the shelf").
-Static Astro 5 site. Content is Markdown in the repo. No database, no UI framework.
+A static Astro 5 site, deployed to https://nithishrajan.github.io on every push to `main` (`.github/workflows/deploy.yml`).
 
-## Design principles (keep every change on-theme)
-- **A warm terminal on a lived-in desk.** Tech accents (mono labels, `~/` paths, `//` comments, commit hashes, a blinking cursor) on warm paper/amber/terracotta colors. Never cold hacker green.
-- **Spontaneity is the main takeaway.** Things should shift a little on each visit: random greeting, archive pick, scattered prints, `surprise me` / the `r` key, "pick my next read". New features should find a way to add a little surprise.
-- **Simple.** Plain CSS with the variables in `src/styles/global.css`, scoped `<style>` in components, and tiny vanilla `<script>`s. Don't add React/Tailwind/etc.
-- Fonts: JetBrains Mono for UI chrome, Newsreader for reading text.
-- All randomness happens client-side, because the site is static.
-- Must work at 390px width and in both light and dark themes. Respect `prefers-reduced-motion`.
+## Design principles
+- **Simple and quiet.** Photos come first, there's very little text, and there are no tech/terminal references (no monospace, `~/`, code jokes or commit hashes).
+- **Colors:** warm cream paper, dark ink, amber accent and terracotta for highlights. Dark mode is a warm charcoal. Tokens are in `src/styles/global.css`.
+- **Type:** Newsreader serif only.
+- Plain CSS with scoped `<style>` blocks and no UI framework. Avoid JS unless it's really needed.
+- Must work at 390px width and in light and dark mode.
+
+## Sections (nav at top right)
+| Link | URL | Content lives in |
+|---|---|---|
+| (home) | `/` | `src/assets/home/`: a curated photo stream, in filename order (`01.jpg`, `02.jpg`, …) |
+| me | `/me/` | `src/assets/me/`: photos of me, in filename order |
+| ephemera | `/ephemera/` | `src/content/ephemera/<slug>.md`: writing (`title, date, description?, draft?`) |
+| snapshots | `/snapshots/` | `src/content/snapshots/<slug>/index.md` + images (`title, date, type?: photo\|gallery\|video, images: [./a.jpg], video?, caption?, location?`) |
+| literature | `/literature/` | `src/content/literature/<slug>.md` (`title, author, status: reading\|read\|want, date, spineColor?, rating?, recommended?, blurb?, cover?`) |
+
+Books are one list sorted by `date`, newest first, so books you're currently reading sit among the finished ones. For a `reading` book, `date` is the day you started it.
+
+Schemas are in `src/content.config.ts` and helpers in `src/lib/feed.ts`.
 
 ## Commands
-- `npm run dev`: dev server at http://localhost:4321
-- `npm run build`: build to `dist/` (fails on bad frontmatter, which is intended)
-- `npm run preview`: serve the build
-- Node is 20.x on this machine, so Astro is pinned to v5. Astro 6+ needs Node 22+.
-
-## Adding content
-| What | Where | Notes |
-|---|---|---|
-| Blog post | `src/content/blog/<slug>.md` | `title, date, description, tags[], draft?` |
-| Ephemera | `src/content/ephemera/<slug>/index.md` + images in the same folder | `title, date, type: photo\|video\|gallery, images: [./x.jpg], video?: <embed URL>, caption?, location?`. For videos, `images[0]` is the poster. |
-| Book | `src/content/books/<slug>.md` | `title, author, spineColor, status: read\|reading\|want, rating? 1-5, recommended?, dateRead?, blurb?, cover?, tags[]` |
-| "now" box | `src/content/now.json` | reading, lastPlace, workingOn, listening, timezone, updated |
-| Greetings | `src/data/greetings.ts` | one is picked at random on each visit |
-
-Schemas live in `src/content.config.ts`. Books only show up in the home feed once they have a `dateRead`.
-
-## Map
-- `src/layouts/Base.astro`: nav, footer, theme toggle, global scripts (relative time, surprise me / `r` key)
-- `src/lib/feed.ts`: collection getters and the merged "git log of life" feed
-- `src/pages/random.json.ts`: the URL list that surprise me picks from
-- Components: `Greeting`, `NowBlock`, `LifeLog`, `ArchivePick`, `PrintScatter`, `BookSpine`, `Rating`, `VideoEmbed`, `RelativeTime`, `SurpriseMe`
-
-## TODO
-- Set the email in `src/pages/about.astro`
-- Replace the seed content and placeholder images
-- Deploys automatically to https://nithishrajan.github.io on every push to `main` (`.github/workflows/deploy.yml`)
+- `npm run dev`: http://localhost:4321
+- `npm run build`: fails on bad frontmatter, which is intended
+- Publish: `git add -A && git commit -m "…" && git push`
+- Node is 20.x locally, so Astro is pinned to v5.

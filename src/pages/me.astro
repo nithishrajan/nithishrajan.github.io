@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { photosIn } from '../lib/feed';
+
+// Add photos of yourself to src/assets/me/ — they show in filename order.
+const photos = photosIn('me');
+---
+<Base title="me">
+  <header class="page-head">
+    <h1>me</h1>
+    <p>A few pictures, roughly in order.</p>
+  </header>
+  <div class="grid">
+    {photos.map((src) => (
+      <figure>
+        <Image src={src} alt="" widths={[480, 900]} sizes="(max-width: 700px) 100vw, 33vw" />
+      </figure>
+    ))}
+  </div>
+</Base>
+<style>
+  .grid { columns: 3 260px; column-gap: 1.25rem; }
+  figure { margin: 0 0 1.25rem; break-inside: avoid; }
+</style>

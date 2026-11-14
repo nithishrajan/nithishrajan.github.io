@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import Rating from '../../components/Rating.astro';
+import { getBooks } from '../../lib/feed';
+// one list, newest first — what I'm reading now sits right among what I've read
+const books = await getBooks();
+const note = { reading: 'reading now', want: 'up next', read: '' } as const;
+---
+<Base title="literature" description="Books I've read and am reading.">
+  <header class="page-head">
+    <h1>literature</h1>
+    <p>Books, read and being read.</p>
+  </header>
+  <ul class="plain-list books">
+    {books.map((b) => (
+      <li class={b.data.status}>
+        <span class="spine" style={`background:${b.data.spineColor}`} aria-hidden="true"></span>
+        <div>
+          <a href={`/literature/${b.id}/`}><em>{b.data.title}</em></a>
+          <span class="soft"> — {b.data.author}</span>
+          {note[b.data.status] && <span class="status">{note[b.data.status]}</span>}
+          {b.data.recommended && <span class="status rec">recommended</span>}
+          {(b.data.blurb || b.data.rating) && (
+            <p class="soft small">{b.data.rating && <Rating value={b.data.rating} />} {b.data.blurb}</p>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+</Base>
+<style>
+  .books { max-width: var(--measure); }
+  li { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .spine { flex: none; width: 10px; align-self: stretch; min-height: 2.6rem; border-radius: 2px; }
+  li a { text-decoration: none; font-size: 1.2rem; }
+  li a:hover { text-decoration: underline; }
+  li p { margin: 0.2rem 0 0; }
+  .status { font-size: 0.8rem; font-style: italic; color: var(--amber); margin-left: 0.6rem; white-space: nowrap; }
+  .rec { color: var(--terracotta); }
+  .reading { background: linear-gradient(90deg, color-mix(in srgb, var(--amber) 8%, transparent), transparent 70%); }
+</style>
