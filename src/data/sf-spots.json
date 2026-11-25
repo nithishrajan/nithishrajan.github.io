@@ -1,0 +1,970 @@
+[
+ {
+  "name": "Harper and Rye",
+  "category": "bar",
+  "rating": 9.8,
+  "neighborhood": "Polk Gulch",
+  "lat": 37.7926,
+  "lng": -122.4209
+ },
+ {
+  "name": "Third Wheel Coffee",
+  "category": "coffee",
+  "rating": 9.7,
+  "neighborhood": "Alamo Square",
+  "lat": 37.7745,
+  "lng": -122.4357
+ },
+ {
+  "name": "Anina",
+  "category": "bar",
+  "rating": 9.7,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7765,
+  "lng": -122.4255
+ },
+ {
+  "name": "The Boys Deli",
+  "category": "restaurant",
+  "rating": 9.5,
+  "neighborhood": "Russian Hill",
+  "lat": 37.797,
+  "lng": -122.422
+ },
+ {
+  "name": "Zeitgeist",
+  "category": "bar",
+  "rating": 9.5,
+  "neighborhood": "Mission",
+  "lat": 37.77,
+  "lng": -122.4222
+ },
+ {
+  "name": "Arsicault",
+  "category": "dessert",
+  "rating": 9.4,
+  "neighborhood": "Inner Richmond",
+  "lat": 37.7834,
+  "lng": -122.4592
+ },
+ {
+  "name": "Daeho",
+  "category": "restaurant",
+  "rating": 9.4,
+  "neighborhood": "Japantown",
+  "lat": 37.7856,
+  "lng": -122.4296
+ },
+ {
+  "name": "Beep's Burgers",
+  "category": "restaurant",
+  "rating": 9.4,
+  "neighborhood": "Ingleside",
+  "lat": 37.7235,
+  "lng": -122.4545
+ },
+ {
+  "name": "Swensen's",
+  "category": "dessert",
+  "rating": 9.4,
+  "neighborhood": "Russian Hill",
+  "lat": 37.7987,
+  "lng": -122.4194
+ },
+ {
+  "name": "The Page",
+  "category": "bar",
+  "rating": 9.3,
+  "neighborhood": "NOPA",
+  "lat": 37.7717,
+  "lng": -122.4373
+ },
+ {
+  "name": "Tony's Pizza Napoletana",
+  "category": "restaurant",
+  "rating": 9.3,
+  "neighborhood": "North Beach",
+  "lat": 37.8004,
+  "lng": -122.409
+ },
+ {
+  "name": "Danny Coyle's",
+  "category": "bar",
+  "rating": 9.3,
+  "neighborhood": "Lower Haight",
+  "lat": 37.7721,
+  "lng": -122.4325
+ },
+ {
+  "name": "Geelou",
+  "category": "bar",
+  "rating": 9.2,
+  "neighborhood": "Marina",
+  "lat": 37.7997,
+  "lng": -122.4412
+ },
+ {
+  "name": "Spec's",
+  "category": "bar",
+  "rating": 9.2,
+  "neighborhood": "North Beach",
+  "lat": 37.7973,
+  "lng": -122.4057
+ },
+ {
+  "name": "Tacos El Patron",
+  "category": "restaurant",
+  "rating": 9.1,
+  "neighborhood": "Mission",
+  "lat": 37.749,
+  "lng": -122.4161
+ },
+ {
+  "name": "La Promenade",
+  "category": "coffee",
+  "rating": 9.1,
+  "neighborhood": "Marina",
+  "lat": 37.8004,
+  "lng": -122.437
+ },
+ {
+  "name": "Thai Spice",
+  "category": "restaurant",
+  "rating": 8.9,
+  "neighborhood": "Polk Gulch",
+  "lat": 37.7928,
+  "lng": -122.4212
+ },
+ {
+  "name": "Salt and Straw",
+  "category": "dessert",
+  "rating": 8.9,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7897,
+  "lng": -122.4339
+ },
+ {
+  "name": "Showdown",
+  "category": "bar",
+  "rating": 8.9,
+  "neighborhood": "SoMa",
+  "lat": 37.7817,
+  "lng": -122.4097
+ },
+ {
+  "name": "Local Edition",
+  "category": "bar",
+  "rating": 8.8,
+  "neighborhood": "SoMa",
+  "lat": 37.7877,
+  "lng": -122.4034
+ },
+ {
+  "name": "Vesuvio",
+  "category": "bar",
+  "rating": 8.8,
+  "neighborhood": "North Beach",
+  "lat": 37.7976,
+  "lng": -122.4065
+ },
+ {
+  "name": "Sugar Lounge",
+  "category": "bar",
+  "rating": 8.8,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7769,
+  "lng": -122.4222
+ },
+ {
+  "name": "Suppenküche",
+  "category": "bar",
+  "rating": 8.8,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7762,
+  "lng": -122.4262
+ },
+ {
+  "name": "Hazel's Kitchen",
+  "category": "restaurant",
+  "rating": 8.7,
+  "neighborhood": "Potrero Hill",
+  "lat": 37.7623,
+  "lng": -122.3982
+ },
+ {
+  "name": "Hook Fish",
+  "category": "restaurant",
+  "rating": 8.7,
+  "neighborhood": "Outer Sunset",
+  "lat": 37.7631,
+  "lng": -122.5087
+ },
+ {
+  "name": "Schlok's Bagels",
+  "category": "restaurant",
+  "rating": 8.7,
+  "neighborhood": "Panhandle",
+  "lat": 37.7735,
+  "lng": -122.4384
+ },
+ {
+  "name": "Last Rites",
+  "category": "bar",
+  "rating": 8.7,
+  "neighborhood": "Duboce Triangle",
+  "lat": 37.7672,
+  "lng": -122.4296
+ },
+ {
+  "name": "Mr Banh Mi",
+  "category": "restaurant",
+  "rating": 8.6,
+  "neighborhood": "Outer Richmond",
+  "lat": 37.7758,
+  "lng": -122.4955
+ },
+ {
+  "name": "La Taqueria",
+  "category": "restaurant",
+  "rating": 8.6,
+  "neighborhood": "Mission",
+  "lat": 37.7509,
+  "lng": -122.4181
+ },
+ {
+  "name": "Compton's",
+  "category": "coffee",
+  "rating": 8.6,
+  "neighborhood": "Fillmore",
+  "lat": 37.7876,
+  "lng": -122.4334
+ },
+ {
+  "name": "Persona",
+  "category": "bar",
+  "rating": 8.5,
+  "neighborhood": "Lower Nob Hill",
+  "lat": 37.7891,
+  "lng": -122.4116
+ },
+ {
+  "name": "Madrone",
+  "category": "bar",
+  "rating": 8.5,
+  "neighborhood": "NOPA",
+  "lat": 37.7754,
+  "lng": -122.4377
+ },
+ {
+  "name": "Dandelion Chocolate",
+  "category": "dessert",
+  "rating": 8.5,
+  "neighborhood": "Mission",
+  "lat": 37.7593,
+  "lng": -122.4214
+ },
+ {
+  "name": "Pink Onion",
+  "category": "restaurant",
+  "rating": 8.4,
+  "neighborhood": "Mission",
+  "lat": 37.7686,
+  "lng": -122.4163
+ },
+ {
+  "name": "Andytown Coffee",
+  "category": "coffee",
+  "rating": 8.4,
+  "neighborhood": "Outer Sunset",
+  "lat": 37.7577,
+  "lng": -122.5019
+ },
+ {
+  "name": "Early To Rise",
+  "category": "restaurant",
+  "rating": 8.4,
+  "neighborhood": "NOPA",
+  "lat": 37.7778,
+  "lng": -122.4415
+ },
+ {
+  "name": "Dumpling Home",
+  "category": "restaurant",
+  "rating": 8.4,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.776,
+  "lng": -122.4228
+ },
+ {
+  "name": "Key Klub",
+  "category": "bar",
+  "rating": 8.4,
+  "neighborhood": "Lower Nob Hill",
+  "lat": 37.7898,
+  "lng": -122.4113
+ },
+ {
+  "name": "Mr. Mahjong's",
+  "category": "bar",
+  "rating": 8.4,
+  "neighborhood": "Financial District",
+  "lat": 37.791,
+  "lng": -122.404
+ },
+ {
+  "name": "Bar Iris",
+  "category": "bar",
+  "rating": 8.3,
+  "neighborhood": "Russian Hill",
+  "lat": 37.798,
+  "lng": -122.4225
+ },
+ {
+  "name": "Harry's Bar",
+  "category": "bar",
+  "rating": 8.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7893,
+  "lng": -122.4337
+ },
+ {
+  "name": "Pakwan",
+  "category": "restaurant",
+  "rating": 8.3,
+  "neighborhood": "Mission",
+  "lat": 37.7649,
+  "lng": -122.4232
+ },
+ {
+  "name": "Artly Robot Coffee",
+  "category": "coffee",
+  "rating": 8.3,
+  "neighborhood": "Fisherman's Wharf",
+  "lat": 37.8087,
+  "lng": -122.4098
+ },
+ {
+  "name": "Saigon Sandwich",
+  "category": "restaurant",
+  "rating": 8.2,
+  "neighborhood": "Little Saigon",
+  "lat": 37.7833,
+  "lng": -122.4176
+ },
+ {
+  "name": "Lolinda",
+  "category": "restaurant",
+  "rating": 8.2,
+  "neighborhood": "Mission",
+  "lat": 37.7565,
+  "lng": -122.4188
+ },
+ {
+  "name": "A16",
+  "category": "restaurant",
+  "rating": 8.2,
+  "neighborhood": "Marina",
+  "lat": 37.8002,
+  "lng": -122.4415
+ },
+ {
+  "name": "Nirvana Soul",
+  "category": "coffee",
+  "rating": 8.0,
+  "neighborhood": "SoMa",
+  "lat": 37.7775,
+  "lng": -122.3932
+ },
+ {
+  "name": "McBaker Market",
+  "category": "restaurant",
+  "rating": 7.9,
+  "neighborhood": "NOPA",
+  "lat": 37.7779,
+  "lng": -122.442
+ },
+ {
+  "name": "The Laundromat",
+  "category": "restaurant",
+  "rating": 7.9,
+  "neighborhood": "Outer Richmond",
+  "lat": 37.7757,
+  "lng": -122.4977
+ },
+ {
+  "name": "White Rabbit",
+  "category": "bar",
+  "rating": 7.8,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7984,
+  "lng": -122.436
+ },
+ {
+  "name": "Sightglass Coffee",
+  "category": "coffee",
+  "rating": 7.8,
+  "neighborhood": "SoMa",
+  "lat": 37.777,
+  "lng": -122.4085
+ },
+ {
+  "name": "Marufuku Ramen",
+  "category": "restaurant",
+  "rating": 7.8,
+  "neighborhood": "Japantown",
+  "lat": 37.7856,
+  "lng": -122.432
+ },
+ {
+  "name": "Beit Rima",
+  "category": "restaurant",
+  "rating": 7.8,
+  "neighborhood": "Duboce Triangle",
+  "lat": 37.768,
+  "lng": -122.429
+ },
+ {
+  "name": "Bubu",
+  "category": "restaurant",
+  "rating": 7.6,
+  "neighborhood": "Lower Pac Heights",
+  "lat": 37.7887,
+  "lng": -122.4355
+ },
+ {
+  "name": "Souvla",
+  "category": "restaurant",
+  "rating": 7.5,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7766,
+  "lng": -122.4258
+ },
+ {
+  "name": "Bistro Mediterraneo",
+  "category": "restaurant",
+  "rating": 7.5,
+  "neighborhood": "Outer Richmond",
+  "lat": 37.7816,
+  "lng": -122.4908
+ },
+ {
+  "name": "CoffeeShop",
+  "category": "coffee",
+  "rating": 7.4,
+  "neighborhood": "Bernal Heights",
+  "lat": 37.7477,
+  "lng": -122.4185
+ },
+ {
+  "name": "Sai's Vietnamese",
+  "category": "restaurant",
+  "rating": 7.4,
+  "neighborhood": "Financial District",
+  "lat": 37.7956,
+  "lng": -122.4024
+ },
+ {
+  "name": "Sisterita",
+  "category": "restaurant",
+  "rating": 7.4,
+  "neighborhood": "Financial District",
+  "lat": 37.794,
+  "lng": -122.4042
+ },
+ {
+  "name": "Maggie McGarry's",
+  "category": "bar",
+  "rating": 7.4,
+  "neighborhood": "North Beach",
+  "lat": 37.799,
+  "lng": -122.4074
+ },
+ {
+  "name": "Curry Leaf",
+  "category": "restaurant",
+  "rating": 7.3,
+  "neighborhood": "Russian Hill",
+  "lat": 37.803,
+  "lng": -122.415
+ },
+ {
+  "name": "Amelie",
+  "category": "bar",
+  "rating": 7.3,
+  "neighborhood": "Polk Gulch",
+  "lat": 37.7933,
+  "lng": -122.4211
+ },
+ {
+  "name": "El Farolito",
+  "category": "restaurant",
+  "rating": 7.3,
+  "neighborhood": "Mission",
+  "lat": 37.7528,
+  "lng": -122.4182
+ },
+ {
+  "name": "Dumpling Story",
+  "category": "restaurant",
+  "rating": 7.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7892,
+  "lng": -122.4336
+ },
+ {
+  "name": "Smuggler's Cove",
+  "category": "bar",
+  "rating": 7.3,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7794,
+  "lng": -122.4234
+ },
+ {
+  "name": "Left Door",
+  "category": "bar",
+  "rating": 7.2,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7978,
+  "lng": -122.4303
+ },
+ {
+  "name": "Lao Table",
+  "category": "restaurant",
+  "rating": 7.2,
+  "neighborhood": "SoMa",
+  "lat": 37.7869,
+  "lng": -122.399
+ },
+ {
+  "name": "Little Original Joe's",
+  "category": "restaurant",
+  "rating": 7.2,
+  "neighborhood": "Marina",
+  "lat": 37.7994,
+  "lng": -122.4372
+ },
+ {
+  "name": "Cole Valley Tavern",
+  "category": "restaurant",
+  "rating": 7.2,
+  "neighborhood": "Cole Valley",
+  "lat": 37.7655,
+  "lng": -122.45
+ },
+ {
+  "name": "Ike's",
+  "category": "restaurant",
+  "rating": 7.1,
+  "neighborhood": "Castro",
+  "lat": 37.7643,
+  "lng": -122.4305
+ },
+ {
+  "name": "Peacekeeper",
+  "category": "bar",
+  "rating": 7.1,
+  "neighborhood": "Lower Nob Hill",
+  "lat": 37.7894,
+  "lng": -122.413
+ },
+ {
+  "name": "Doppio Zero",
+  "category": "restaurant",
+  "rating": 7.1,
+  "neighborhood": "Hayes Valley",
+  "lat": 37.7769,
+  "lng": -122.4226
+ },
+ {
+  "name": "The Bird",
+  "category": "restaurant",
+  "rating": 7.0,
+  "neighborhood": "SoMa",
+  "lat": 37.7868,
+  "lng": -122.4002
+ },
+ {
+  "name": "Cracked and Battered",
+  "category": "restaurant",
+  "rating": 6.8,
+  "neighborhood": "Marina",
+  "lat": 37.8003,
+  "lng": -122.4401
+ },
+ {
+  "name": "YakiniQ",
+  "category": "restaurant",
+  "rating": 6.7,
+  "neighborhood": "Japantown",
+  "lat": 37.7858,
+  "lng": -122.429
+ },
+ {
+  "name": "Boiling Hot Pot",
+  "category": "restaurant",
+  "rating": 6.7,
+  "neighborhood": "Central Richmond",
+  "lat": 37.7805,
+  "lng": -122.481
+ },
+ {
+  "name": "1015 Folsom",
+  "category": "bar",
+  "rating": 6.7,
+  "neighborhood": "SoMa",
+  "lat": 37.778,
+  "lng": -122.4058
+ },
+ {
+  "name": "Pac Heights Deli",
+  "category": "restaurant",
+  "rating": 6.6,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7888,
+  "lng": -122.4352
+ },
+ {
+  "name": "Sextant Coffee",
+  "category": "coffee",
+  "rating": 6.5,
+  "neighborhood": "SoMa",
+  "lat": 37.7722,
+  "lng": -122.4134
+ },
+ {
+  "name": "Palmyra",
+  "category": "restaurant",
+  "rating": 6.5,
+  "neighborhood": "Lower Haight",
+  "lat": 37.772,
+  "lng": -122.4339
+ },
+ {
+  "name": "Makeout Room",
+  "category": "bar",
+  "rating": 6.5,
+  "neighborhood": "Mission",
+  "lat": 37.7553,
+  "lng": -122.4192
+ },
+ {
+  "name": "Polkcha",
+  "category": "bar",
+  "rating": 6.4,
+  "neighborhood": "Polk Gulch",
+  "lat": 37.793,
+  "lng": -122.421
+ },
+ {
+  "name": "Columbus Cafe",
+  "category": "bar",
+  "rating": 6.3,
+  "neighborhood": "North Beach",
+  "lat": 37.7997,
+  "lng": -122.4078
+ },
+ {
+  "name": "Novella",
+  "category": "bar",
+  "rating": 6.3,
+  "neighborhood": "SoMa",
+  "lat": 37.7868,
+  "lng": -122.4012
+ },
+ {
+  "name": "Volcano Curry",
+  "category": "restaurant",
+  "rating": 6.3,
+  "neighborhood": "Central Richmond",
+  "lat": 37.7806,
+  "lng": -122.478
+ },
+ {
+  "name": "Bangkok Street Thai",
+  "category": "restaurant",
+  "rating": 6.3,
+  "neighborhood": "Japantown",
+  "lat": 37.7864,
+  "lng": -122.431
+ },
+ {
+  "name": "Golden Goat Coffee",
+  "category": "coffee",
+  "rating": 6.3,
+  "neighborhood": "SoMa",
+  "lat": 37.7804,
+  "lng": -122.3944
+ },
+ {
+  "name": "D&N Hot Wings",
+  "category": "restaurant",
+  "rating": 6.2,
+  "neighborhood": "SoMa",
+  "lat": 37.7891,
+  "lng": -122.3949
+ },
+ {
+  "name": "Boardroom",
+  "category": "bar",
+  "rating": 5.7,
+  "neighborhood": "North Beach",
+  "lat": 37.7989,
+  "lng": -122.4103
+ },
+ {
+  "name": "Ale House",
+  "category": "bar",
+  "rating": 5.5,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7976,
+  "lng": -122.4313
+ },
+ {
+  "name": "Balboa Cafe",
+  "category": "bar",
+  "rating": 5.5,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7985,
+  "lng": -122.4358
+ },
+ {
+  "name": "Royal Indian Cuisine",
+  "category": "restaurant",
+  "rating": 5.5,
+  "neighborhood": "Fillmore",
+  "lat": 37.7855,
+  "lng": -122.433
+ },
+ {
+  "name": "Burma Superstar",
+  "category": "restaurant",
+  "rating": 5.5,
+  "neighborhood": "Inner Richmond",
+  "lat": 37.783,
+  "lng": -122.4625
+ },
+ {
+  "name": "Side Characters",
+  "category": "coffee",
+  "rating": 5.5,
+  "neighborhood": "Russian Hill",
+  "lat": 37.7966,
+  "lng": -122.4218
+ },
+ {
+  "name": "Golden Gate Tap Room",
+  "category": "bar",
+  "rating": 5.4,
+  "neighborhood": "Union Square",
+  "lat": 37.7889,
+  "lng": -122.409
+ },
+ {
+  "name": "Saint Frank",
+  "category": "coffee",
+  "rating": 5.4,
+  "neighborhood": "Russian Hill",
+  "lat": 37.7984,
+  "lng": -122.4227
+ },
+ {
+  "name": "Bar April Jean",
+  "category": "bar",
+  "rating": 5.4,
+  "neighborhood": "North Beach",
+  "lat": 37.7993,
+  "lng": -122.4073
+ },
+ {
+  "name": "Peet's Fillmore",
+  "category": "coffee",
+  "rating": 5.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7895,
+  "lng": -122.4339
+ },
+ {
+  "name": "La Mediterranee",
+  "category": "restaurant",
+  "rating": 5.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.79,
+  "lng": -122.434
+ },
+ {
+  "name": "Bun Mee",
+  "category": "restaurant",
+  "rating": 4.8,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7882,
+  "lng": -122.4334
+ },
+ {
+  "name": "Shizen",
+  "category": "restaurant",
+  "rating": 4.5,
+  "neighborhood": "Mission",
+  "lat": 37.7681,
+  "lng": -122.4214
+ },
+ {
+  "name": "Sweet Maple",
+  "category": "restaurant",
+  "rating": 4.5,
+  "neighborhood": "Fillmore",
+  "lat": 37.7861,
+  "lng": -122.4338
+ },
+ {
+  "name": "Northstar",
+  "category": "bar",
+  "rating": 4.5,
+  "neighborhood": "North Beach",
+  "lat": 37.7985,
+  "lng": -122.4105
+ },
+ {
+  "name": "Bus Stop",
+  "category": "bar",
+  "rating": 4.3,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.798,
+  "lng": -122.4299
+ },
+ {
+  "name": "Jaxson",
+  "category": "bar",
+  "rating": 4.3,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7994,
+  "lng": -122.4362
+ },
+ {
+  "name": "Napoli Pizza",
+  "category": "restaurant",
+  "rating": 4.3,
+  "neighborhood": "Polk Gulch",
+  "lat": 37.7866,
+  "lng": -122.4196
+ },
+ {
+  "name": "Uno Dos Tacos",
+  "category": "restaurant",
+  "rating": 4.3,
+  "neighborhood": "Financial District",
+  "lat": 37.7891,
+  "lng": -122.4013
+ },
+ {
+  "name": "Bay Subs and Deli",
+  "category": "restaurant",
+  "rating": 4.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7898,
+  "lng": -122.4344
+ },
+ {
+  "name": "Taco Primo",
+  "category": "restaurant",
+  "rating": 4.3,
+  "neighborhood": "Pacific Heights",
+  "lat": 37.7907,
+  "lng": -122.4342
+ },
+ {
+  "name": "Tupelo",
+  "category": "bar",
+  "rating": 4.3,
+  "neighborhood": "North Beach",
+  "lat": 37.7988,
+  "lng": -122.407
+ },
+ {
+  "name": "Mel's Drive-In",
+  "category": "restaurant",
+  "rating": 4.3,
+  "neighborhood": "Marina",
+  "lat": 37.7994,
+  "lng": -122.4365
+ },
+ {
+  "name": "Pizzalicious",
+  "category": "restaurant",
+  "rating": 3.8,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7977,
+  "lng": -122.4311
+ },
+ {
+  "name": "Westwood",
+  "category": "bar",
+  "rating": 3.6,
+  "neighborhood": "Marina",
+  "lat": 37.7993,
+  "lng": -122.4348
+ },
+ {
+  "name": "El Rancho Grande",
+  "category": "restaurant",
+  "rating": 3.4,
+  "neighborhood": "NOPA",
+  "lat": 37.7779,
+  "lng": -122.4383
+ },
+ {
+  "name": "The Coffee Movement",
+  "category": "coffee",
+  "rating": 3.4,
+  "neighborhood": "Nob Hill",
+  "lat": 37.7944,
+  "lng": -122.4112
+ },
+ {
+  "name": "Legacy",
+  "category": "bar",
+  "rating": 3.4,
+  "neighborhood": null,
+  "lat": null,
+  "lng": null
+ },
+ {
+  "name": "Bar Part Time",
+  "category": "bar",
+  "rating": 3.2,
+  "neighborhood": "Mission",
+  "lat": 37.7683,
+  "lng": -122.4231
+ },
+ {
+  "name": "Beluna Cafe",
+  "category": "coffee",
+  "rating": 2.4,
+  "neighborhood": "Panhandle",
+  "lat": 37.7726,
+  "lng": -122.4385
+ },
+ {
+  "name": "Mauna Loa",
+  "category": "bar",
+  "rating": 2.3,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7972,
+  "lng": -122.4355
+ },
+ {
+  "name": "Acquolina",
+  "category": "restaurant",
+  "rating": 2.3,
+  "neighborhood": "North Beach",
+  "lat": 37.8008,
+  "lng": -122.4093
+ },
+ {
+  "name": "Palm House",
+  "category": "bar",
+  "rating": 1.2,
+  "neighborhood": "Cow Hollow",
+  "lat": 37.7978,
+  "lng": -122.4328
+ }
+]

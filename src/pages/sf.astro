@@ -1,0 +1,222 @@
+---
+import Base from '../layouts/Base.astro';
+import spots from '../data/sf-spots.json';
+
+// Places I eat and drink in San Francisco. Edit src/data/sf-spots.json to add or change one:
+// category is restaurant | bar | coffee | dessert; leave lat/lng null if a spot has no fixed location.
+const cats = [
+  { key: 'all', label: 'all' },
+  { key: 'restaurant', label: 'restaurants' },
+  { key: 'bar', label: 'bars' },
+  { key: 'coffee', label: 'coffee' },
+  { key: 'dessert', label: 'dessert' },
+];
+const ranked = [...spots].sort((a, b) => b.rating - a.rating);
+const count = (k: string) => (k === 'all' ? ranked.length : ranked.filter((s) => s.category === k).length);
+---
+<Base title="SF" description="Where I eat and drink in San Francisco.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+
+  <header class="page-head">
+    <h1>SF</h1>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter by category" hidden>
+    {cats.map((c, i) => (
+      <button type="button" data-cat={c.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+        {c.key !== 'all' && <span class={`dot ${c.key}`} aria-hidden="true"></span>}
+        {c.label} <span class="soft count">{count(c.key)}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="layout">
+    <div id="map" class="map" aria-label="Map of places in San Francisco"></div>
+
+    <div class="side">
+      <ol class="plain-list spots" id="spots">
+        {ranked.map((s, i) => (
+          <li data-cat={s.category} data-i={i}>
+            <button type="button" class="row">
+              <span class="rank soft">{i + 1}</span>
+              <span class={`dot ${s.category}`} aria-hidden="true"></span>
+              <span class="what">
+                {s.name}
+                <span class="where soft">{s.category}{s.neighborhood && ` · ${s.neighborhood}`}</span>
+              </span>
+              <span class="score">{s.rating.toFixed(1)}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+
+  <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script is:inline define:vars={{ spots: ranked }}>
+    (function () {
+      if (!window.L) return; // list still works without the map
+      var mapEl = document.getElementById('map');
+      var list = document.getElementById('spots');
+      var rows = Array.prototype.slice.call(list.querySelectorAll('li'));
+      var filters = document.querySelector('.filters');
+      filters.hidden = false;
+
+      var map = L.map(mapEl, { scrollWheelZoom: false, zoomControl: true }).setView([37.773, -122.44], 13);
+      var dark = window.matchMedia('(prefers-color-scheme: dark)');
+      var tiles;
+      function setTiles() {
+        if (tiles) map.removeLayer(tiles);
+        tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/' + (dark.matches ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+          subdomains: 'abcd',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        }).addTo(map);
+      }
+      setTiles();
+
+      function color(cat) {
+        var name = cat === 'paper' ? '--paper' : '--c-' + cat;
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      }
+      function esc(t) {
+        var d = document.createElement('div');
+        d.textContent = t;
+        return d.innerHTML;
+      }
+
+      var markers = spots.map(function (s, i) {
+        if (s.lat == null) return null;
+        var m = L.circleMarker([s.lat, s.lng], {
+          radius: 7, weight: 2, color: color('paper'), fillOpacity: 1, fillColor: color(s.category),
+        });
+        m.bindPopup(
+          '<div class="pop-name">' + esc(s.name) + '</div>' +
+          '<div class="pop-where">' + esc(s.category) + (s.neighborhood ? ' · ' + esc(s.neighborhood) : '') + '</div>' +
+          '<div class="pop-score">' + s.rating.toFixed(1) + '</div>',
+          { closeButton: false, offset: [0, -4] }
+        );
+        m.on('click', function () { select(i, false); });
+        m.addTo(map);
+        return m;
+      });
+
+      function recolor() {
+        markers.forEach(function (m, i) { if (m) m.setStyle({ color: color('paper'), fillColor: color(spots[i].category) }); });
+      }
+      dark.addEventListener('change', function () { setTiles(); recolor(); });
+
+      var current = 'all';
+      function applyFilter(cat) {
+        current = cat;
+        var rank = 0;
+        rows.forEach(function (li, i) {
+          var show = cat === 'all' || spots[i].category === cat;
+          li.hidden = !show;
+          if (show) li.querySelector('.rank').textContent = ++rank;
+          var m = markers[i];
+          if (!m) return;
+          if (show && !map.hasLayer(m)) m.addTo(map);
+          if (!show && map.hasLayer(m)) map.removeLayer(m);
+        });
+        map.closePopup();
+        filters.querySelectorAll('button').forEach(function (b) {
+          b.setAttribute('aria-pressed', b.dataset.cat === cat ? 'true' : 'false');
+        });
+      }
+      filters.addEventListener('click', function (e) {
+        var b = e.target.closest('button');
+        if (b) applyFilter(b.dataset.cat);
+      });
+
+      function select(i, fromList) {
+        rows.forEach(function (li) { li.classList.remove('on'); });
+        var li = rows[i];
+        li.classList.add('on');
+        if (!fromList) list.scrollTop = li.offsetTop - list.clientHeight / 3;
+        var m = markers[i];
+        if (m && fromList) {
+          map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 15), { duration: 0.6 });
+          m.openPopup();
+        }
+      }
+      rows.forEach(function (li, i) {
+        li.querySelector('.row').addEventListener('click', function () { select(i, true); });
+        if (!markers[i]) li.classList.add('nopin');
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  :global(:root) {
+    --c-restaurant: #b5502f;
+    --c-bar: #5b4a8a;
+    --c-coffee: #c27c0e;
+    --c-dessert: #c4697f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root) {
+      --c-restaurant: #e07a55;
+      --c-bar: #a593d6;
+      --c-coffee: #f0a43a;
+      --c-dessert: #e693a6;
+    }
+  }
+
+  .page-head { margin-bottom: 1.5rem; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .filters button {
+    font: inherit; font-size: 1rem; color: var(--ink); cursor: pointer;
+    min-height: 44px; padding: 0.4rem 1rem; border-radius: 999px;
+    border: 1px solid var(--rule); background: transparent;
+  }
+  .filters button[aria-pressed='true'] { border-color: var(--ink); background: var(--paper-2); }
+  .count { font-size: 0.85rem; }
+
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; flex: none; margin-right: 0.4rem; vertical-align: 1px; }
+  .dot.restaurant { background: var(--c-restaurant); }
+  .dot.bar { background: var(--c-bar); }
+  .dot.coffee { background: var(--c-coffee); }
+  .dot.dessert { background: var(--c-dessert); }
+
+  .layout { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; }
+  .map {
+    flex: 999 1 520px; min-width: 0; height: 600px;
+    border: 1px solid var(--rule); border-radius: 4px; background: var(--paper-2);
+  }
+  .side { flex: 1 1 300px; min-width: 0; }
+  .spots { max-height: 600px; overflow-y: auto; position: relative; border-top: 1px solid var(--rule); }
+  .spots li { border-bottom: 1px solid var(--rule); }
+  .row {
+    display: flex; align-items: center; gap: 0.6rem; width: 100%; min-height: 44px;
+    padding: 0.5rem 0.4rem; border: 0; background: transparent; text-align: left;
+    font: inherit; font-size: 1.05rem; line-height: 1.3; color: var(--ink); cursor: pointer;
+  }
+  .row:hover { color: var(--amber); }
+  li.on .row { background: var(--paper-2); }
+  .rank { width: 1.6rem; font-size: 0.85rem; flex: none; }
+  .what { flex: 1; min-width: 0; }
+  .where { display: block; font-size: 0.85rem; font-style: italic; }
+  .score { color: var(--amber); font-size: 1.1rem; flex: none; }
+
+  @media (max-width: 700px) {
+    .map { height: 60vh; max-height: 460px; flex-basis: 100%; }
+    .spots { max-height: none; overflow: visible; }
+  }
+
+  /* Leaflet: warm the light tiles and use the site's type */
+  .map :global(.leaflet-tile-pane) { filter: sepia(0.25) saturate(0.85); }
+  .map :global(.leaflet-container),
+  .map:global(.leaflet-container) { font-family: var(--serif); background: var(--paper-2); }
+  .map :global(.leaflet-popup-content-wrapper),
+  .map :global(.leaflet-popup-tip) { background: var(--paper); color: var(--ink); border-radius: 4px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
+  .map :global(.leaflet-popup-content) { margin: 0.7rem 0.9rem; font-family: var(--serif); }
+  .map :global(.pop-name) { font-size: 1.05rem; line-height: 1.25; }
+  .map :global(.pop-where) { font-size: 0.85rem; font-style: italic; color: var(--ink-soft); }
+  .map :global(.pop-score) { font-size: 1.3rem; color: var(--amber); }
+  .map :global(.leaflet-control-attribution) { background: color-mix(in srgb, var(--paper) 80%, transparent); color: var(--ink-soft); font-size: 0.7rem; }
+  .map :global(.leaflet-control-attribution a) { color: var(--ink-soft); }
+  .map :global(.leaflet-bar a) { background: var(--paper); color: var(--ink); border-color: var(--rule); }
+</style>

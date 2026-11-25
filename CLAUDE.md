@@ -17,6 +17,7 @@ A static Astro 5 site, deployed to https://nithishrajan.github.io on every push 
 | ephemera | `/ephemera/` | `src/content/ephemera/<slug>.md`: writing (`title, date, description?, draft?`) |
 | snapshots | `/snapshots/` | `src/content/snapshots/<slug>/index.md` + images (`title, date, type?: photo\|gallery\|video, images: [./a.jpg], video?, caption?, location?`) |
 | literature | `/literature/` | `src/content/literature/<slug>.md` (`title, author, status: reading\|read\|want, date, spineColor?, rating?, recommended?, blurb?, cover?`) |
+| SF | `/sf/` | `src/data/sf-spots.json`: places I eat and drink, shown on a Leaflet map (`name, category: restaurant\|bar\|coffee\|dessert, rating, neighborhood, lat, lng`; lat/lng null = no pin) |
 
 Books are one list sorted by `date`, newest first, so books you're currently reading sit among the finished ones. For a `reading` book, `date` is the day you started it.
 
